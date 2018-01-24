@@ -12,14 +12,14 @@
 */
 
 //文章列表页
-Route::get('/posts','PostsController@index');
+Route::get('/posts', 'PostsController@index');
 //文章详情页
-Route::get('/posts/{post}','PostsController@show');
+Route::get('/posts/{post}', 'PostsController@show');
 //创建文章
-Route::get('/posts/create','PostsController@create');
-Route::post('/posts','PostsController@store');
+Route::get('/posts/create', 'PostsController@create');
+Route::post('/posts', 'PostsController@store');
 //编辑文章
-Route::get('/posts/{post}/edit','PostsController@edit');
-Route::put('/posts/{post}','PostsController@update');
+Route::get('/posts/{post}/edit', 'PostsController@edit');
+Route::put('/posts/{post}', 'PostsController@update');
 //删除文章
-Route::get('/posts/delete','PostsController@delete');
+Route::get('/posts/delete', 'PostsController@delete');

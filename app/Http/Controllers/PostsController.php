@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('post/index');
     }
 
     /**
@@ -23,7 +23,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('post/create');
     }
 
     /**
@@ -34,7 +34,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('post/store');
     }
 
     /**
@@ -45,7 +45,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('post/show');
     }
 
     /**
