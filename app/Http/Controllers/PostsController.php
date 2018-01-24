@@ -34,7 +34,6 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        return view('post/store');
     }
 
     /**
@@ -43,7 +42,7 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         return view('post/show');
     }
@@ -56,7 +55,7 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('post/edit');
     }
 
     /**
