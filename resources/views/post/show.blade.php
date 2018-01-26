@@ -4,20 +4,27 @@
     <div class="col-sm-8 blog-main">
         <div class="blog-post">
             <div style="display:inline-flex">
-                <h2 class="blog-post-title">{{$post->title}}</h2>
-                <a style="margin: auto" href="/posts/62/{{$post->id}}">
+                <h2 class="blog-post-title">{{$post['title']}}</h2>
+                <a style="margin: auto" href="/posts/{{$post['id']}}/edit">
                     <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 </a>
-                <a style="margin: auto" href="/posts/62/delete">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                </a>
+                {{--<a style="margin: auto" href="/posts/{{$post['id']}}">--}}
+                {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
+                {{--</a>--}}
+
+                <form method="post" action="/posts/{{$post['id']}}" accept-charset="utf-8" id="hidden-delete-form">
+                    <input name="_method" type="hidden" value="delete">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-info btn-danger btn-sm iframe cboxElement">
+                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                </form>
             </div>
 
             <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">Kassandra
                     Ankunding2</a></p>
 
             <p>
-            <p>{{$post->content}}
+            <p>{!!$post['content']!!}
             <div>
                 <a href="/posts/{{$post->id}}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
 
@@ -58,4 +65,5 @@
         </div>
 
     </div><!-- /.blog-main -->
+
 @endsection

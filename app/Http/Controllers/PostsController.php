@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 文章列表
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -18,68 +18,97 @@ class PostsController extends Controller
         return view('post/index', compact('posts'));
     }
 
+
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * 写文章
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
         return view('post/create');
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * 文章创建
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
+        //验证
+        $this->validate($request, [
+            'title' => 'required|string|max:100|min:5',
+            'content' => 'required|string|min:10',
+        ]);
+        $post = Post::create($request->all());
+        return redirect('/posts');
     }
 
+
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * 文章详情
+     * @param Post $post
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Post $post)
     {
         return view('post/show', compact('post'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return view('post/edit');
-    }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * 文章编辑
+     * @param Post $post
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function update(Request $request, $id)
+    public function edit(Post $post)
     {
-        //
+        return view('post/edit', compact('post'));
     }
 
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * 文章编辑更新
+     * @param Request $request
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request, Post $post)
+    {
+        //验证
+        $this->validate($request, [
+            'title' => 'required|string|max:100|min:5',
+            'content' => 'required|string|min:10',
+        ]);
+        $post['title'] = $request['title'];
+        $post['content'] = $request['content'];
+        $post->save();
+        return redirect("/posts/{$post->id}");
+    }
+
+
+    /**
+     * 文章删除
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        return redirect('/posts');
+    }
+
+    /**
+     * 图片上传
+     * @param Request $request
+     * @return string
+     */
+    public function imageUpload(Request $request)
+    {
+        $path = $request->file('wangEditorH5File')->storePublicly(md5(time()));
+        return asset('storage/' . $path);
+
     }
 }

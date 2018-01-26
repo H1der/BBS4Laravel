@@ -11,15 +11,7 @@
 |
 */
 
-//文章列表页
-Route::get('/posts', 'PostsController@index');
-//创建文章
-Route::get('/posts/create', 'PostsController@create');
-Route::post('/posts', 'PostsController@store');
-//文章详情页
-Route::get('/posts/{post}', 'PostsController@show');
-//编辑文章
-Route::get('/posts/{post}/edit', 'PostsController@edit');
-Route::put('/posts/{post}', 'PostsController@update');
-//删除文章
-Route::get('/posts/delete', 'PostsController@delete');
+
+Route::resource('/posts', 'PostsController');
+//图片上传
+Route::post('posts/image/upload', 'PostsController@imageUpload');
