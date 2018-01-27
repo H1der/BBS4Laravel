@@ -5,23 +5,23 @@
         <div class="blog-post">
             <div style="display:inline-flex">
                 <h2 class="blog-post-title">{{$post['title']}}</h2>
-                <a style="margin: auto" href="/posts/{{$post['id']}}/edit">
-                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                </a>
-                {{--<a style="margin: auto" href="/posts/{{$post['id']}}">--}}
-                {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>--}}
-                {{--</a>--}}
-
-                <form method="post" action="/posts/{{$post['id']}}" accept-charset="utf-8" id="hidden-delete-form">
-                    <input name="_method" type="hidden" value="delete">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                    <button type="submit" class="btn btn-info btn-danger btn-sm iframe cboxElement">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                </form>
+                @can('update',$post)
+                    <a style="margin: auto" href="/posts/{{$post['id']}}/edit">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                    </a>
+                @endcan
+                @can('delete',$post)
+                    <form method="post" action="/posts/{{$post['id']}}" accept-charset="utf-8" id="hidden-delete-form">
+                        <input name="_method" type="hidden" value="delete">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="btn btn-info btn-danger btn-sm iframe cboxElement">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                    </form>
+                @endcan
             </div>
 
-            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a href="#">Kassandra
-                    Ankunding2</a></p>
+            <p class="blog-post-meta">{{$post->created_at->toFormattedDateString()}} by <a
+                        href="#">{{$post->user->name}}</a></p>
 
             <p>
             <p>{!!$post['content']!!}

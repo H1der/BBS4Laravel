@@ -41,7 +41,11 @@ class PostsController extends Controller
             'title' => 'required|string|max:100|min:5',
             'content' => 'required|string|min:10',
         ]);
-        $post = Post::create($request->all());
+
+
+        $user_id = \Auth::id();
+        $params = array_merge($request->all(), compact('user_id'));
+        $post = Post::create($params);
         return redirect('/posts');
     }
 
@@ -81,6 +85,9 @@ class PostsController extends Controller
             'title' => 'required|string|max:100|min:5',
             'content' => 'required|string|min:10',
         ]);
+
+        $this->authorize('update', $post);
+
         $post['title'] = $request['title'];
         $post['content'] = $request['content'];
         $post->save();
@@ -94,9 +101,11 @@ class PostsController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy($id, Post $post)
     {
+        $this->authorize('update', $post);
         Post::destroy($id);
+
         return redirect('/posts');
     }
 
