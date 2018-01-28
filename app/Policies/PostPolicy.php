@@ -20,11 +20,23 @@ class PostPolicy
         //
     }
 
+    /**
+     * 编辑权限
+     * @param User $user
+     * @param Post $post
+     * @return bool
+     */
     public function update(User $user, Post $post)
     {
         return $user->id == $post->user_id;
     }
 
+    /**
+     * 删除权限
+     * @param User $user
+     * @param Post $post
+     * @return bool
+     */
     public function delete(User $user, Post $post)
     {
         return $user->id == $post->user_id;

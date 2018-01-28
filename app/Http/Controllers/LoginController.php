@@ -6,11 +6,19 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    /**
+     * 登陆首页
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('login.index');
     }
 
+    /**
+     * 登陆行为
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function login()
     {
         $this->validate(\request(), [
@@ -29,6 +37,10 @@ class LoginController extends Controller
 
     }
 
+    /**
+     * 退出
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function logout()
     {
         \Auth::logout();
