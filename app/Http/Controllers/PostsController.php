@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::orderBy('created_at', 'desc')->withCount('comments')->paginate(5);
         return view('post/index', compact('posts'));
     }
 
@@ -57,6 +58,7 @@ class PostsController extends Controller
      */
     public function show(Post $post)
     {
+        $post->load('comments');
         return view('post/show', compact('post'));
     }
 
@@ -119,5 +121,19 @@ class PostsController extends Controller
         $path = $request->file('wangEditorH5File')->storePublicly(md5(time()));
         return asset('storage/' . $path);
 
+    }
+
+    public function comment(Post $post)
+    {
+        $this->validate(\request(), [
+            'content' => 'required|min:3',
+        ]);
+
+        $comments = new Comment();
+        $comments->user_id = \Auth::id();
+        $comments->content = \request('content');
+        $post->comments()->save($comments);
+
+        return back();
     }
 }
