@@ -36,3 +36,8 @@ Route::post('/posts/{post}/comment', 'PostsController@comment');
 
 //图片上传
 Route::post('posts/image/upload', 'PostsController@imageUpload');
+
+//文章点赞
+Route::get('/posts/{post}/zan', 'PostsController@zan');
+//取消点赞
+Route::get('/posts/{post}/unzan', 'PostsController@unzan');

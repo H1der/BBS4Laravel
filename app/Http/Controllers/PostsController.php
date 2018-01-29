@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Post;
+use App\Zan;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -15,7 +16,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->withCount('comments')->paginate(5);
+        $posts = Post::orderBy('created_at', 'desc')->withCount(['comments', 'zans'])->paginate(5);
         return view('post/index', compact('posts'));
     }
 
@@ -79,6 +80,7 @@ class PostsController extends Controller
      * @param Request $request
      * @param Post $post
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Post $post)
     {
@@ -123,6 +125,11 @@ class PostsController extends Controller
 
     }
 
+    /**
+     * 文章评论
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function comment(Post $post)
     {
         $this->validate(\request(), [
@@ -134,6 +141,34 @@ class PostsController extends Controller
         $comments->content = \request('content');
         $post->comments()->save($comments);
 
+        return back();
+    }
+
+    /**
+     * 文章点赞
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function zan(Post $post)
+    {
+        $param = [
+            'user_id' => \Auth::id(),
+            'post_id' => $post->id,
+        ];
+        Zan::firstOrCreate($param);
+        return back();
+    }
+
+
+    /**
+     * 取消点赞
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function unzan(Post $post)
+    {
+        $post->zan(\Auth::id())->delete();
         return back();
     }
 }
