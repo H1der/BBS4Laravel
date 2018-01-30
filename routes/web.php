@@ -10,6 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+//文章搜索
+Route::get('/posts/search', 'PostsController@search');
 //用户模块
 //注册页面
 Route::get('/register', 'RegisterController@index');
