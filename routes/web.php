@@ -50,3 +50,7 @@ Route::get('/posts/{post}/zan', 'PostsController@zan');
 //取消点赞
 Route::get('/posts/{post}/unzan', 'PostsController@unzan');
 
+//专题详情页
+Route::get('/topic/{topic}', 'TopicController@show');
+//投稿
+Route::post('/topic/{topic}', 'TopicController@submit');
