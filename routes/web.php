@@ -11,6 +11,10 @@
 |
 */
 
+//个人中心
+Route::get('/user/{user}', 'UserController@show');
+Route::post('/user/{user}/fan', 'UserController@fan');
+Route::post('/user/{user}/unfan', 'UserController@unfan');
 
 //文章搜索
 Route::get('/posts/search', 'PostsController@search');
@@ -45,3 +49,4 @@ Route::post('posts/image/upload', 'PostsController@imageUpload');
 Route::get('/posts/{post}/zan', 'PostsController@zan');
 //取消点赞
 Route::get('/posts/{post}/unzan', 'PostsController@unzan');
+
