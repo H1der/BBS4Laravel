@@ -45,11 +45,12 @@ class Post extends Model
     }
 
     //不属于某个作者的文章
-    public function scopeTopicNoBy(Builder $query, $topic_id)
+    public function scopeTopicNotBy(Builder $query, $topic_id)
     {
-        return $query->doesntHave('postTopics', 'amd', function ($q) use ($topic_id) {
+        return $query->doesntHave('postTopics', 'and', function ($q) use ($topic_id) {
             $q->where('topic_id', $topic_id);
         });
     }
+
 
 }

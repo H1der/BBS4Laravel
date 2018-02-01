@@ -1,5 +1,4 @@
 @extends('layout.master')
-
 @section('content')
     <div class="col-sm-8">
         <blockquote>
@@ -20,6 +19,7 @@
                 </div>
                 <div class="modal-body">
                     <form action="/topic/{{$topic->id}}/submit" method="post">
+                        {{csrf_field()}}
                         @foreach($myposts as $post)
                             <div class="checkbox">
                                 <label>
@@ -44,7 +44,7 @@
                     @foreach($posts as $post)
                         <div class="blog-post" style="margin-top: 30px">
                             <p class="">
-                                <a href="/user/{{$post->user->id}}">{{$post->user>name}}</a>
+                                <a href="/user/{{$post->user->id}}">{{$post->user->name}}</a>
                                 {{$post->created_at->diffForHumans()}}
                             </p>
                             <p class=""><a href="/posts/{{$post->id}}">{{$post->title}}</a></p>
