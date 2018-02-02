@@ -54,3 +54,5 @@ Route::get('/posts/{post}/unzan', 'PostsController@unzan');
 Route::get('/topic/{topic}', 'TopicController@show');
 //投稿
 Route::post('/topic/{topic}/submit', 'TopicController@submit');
+
+include_once('admin.php');
