@@ -13,6 +13,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::group(['middleware' => 'auth:admin'], function () {
         //首页
         Route::get('/home', 'HomeController@index');
+        //管理人员模块
+        Route::get('/users', 'UserController@index');
+        Route::get('/users/create', 'UserController@create');
+        Route::post('/users/store', 'UserController@store');
+
     });
 
 
