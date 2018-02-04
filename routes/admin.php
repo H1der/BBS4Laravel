@@ -18,6 +18,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/users/create', 'UserController@create');
         Route::post('/users/store', 'UserController@store');
 
+        //审核模块
+        Route::get('/posts', 'PostsController@index');
+        Route::post('/posts/{post}/status', 'PostsController@index');
+
     });
 
 
