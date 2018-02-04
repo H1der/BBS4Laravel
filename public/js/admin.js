@@ -4,6 +4,7 @@ $.ajaxSetup({
     }
 });
 
+
 $(".post-audit").click(function (event) {
     target = $(event.target);
     var post_id = target.attr("post-id");
@@ -24,3 +25,4 @@ $(".post-audit").click(function (event) {
         }
     });
 });
+
