@@ -17,6 +17,20 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
         Route::get('/users', 'UserController@index');
         Route::get('/users/create', 'UserController@create');
         Route::post('/users/store', 'UserController@store');
+        Route::get('/users/{user}/role', 'UserController@role');
+        Route::post('/users/{user}/role', 'UserController@storeRole');
+
+        //角色
+        Route::get('roles', 'RoleController@index');
+        Route::get('roles/create', 'RoleController@create');
+        Route::post('roles/store', 'RoleController@store');
+        Route::get('/roles/{role}/permission', 'RoleController@permission');
+        Route::post('/roles/{role}/permission', 'RoleController@storePermission');
+
+        //权限
+        Route::get('/permissions', 'PermissionController@index');
+        Route::get('/permissions/create', 'PermissionController@create');
+        Route::get('/permissions/store', 'PermissionController@store');
 
         //审核模块
 
