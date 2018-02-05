@@ -13,7 +13,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = AdminRole::paginate(10);
-        return view('admin/role/index');
+        return view('admin/role/index', compact('roles'));
     }
 
     //创建角色
@@ -26,7 +26,7 @@ class RoleController extends Controller
     public function store()
     {
         $this->validate(\request(), [
-            'name' => 'required|min3',
+            'name' => 'required|min:3',
             'description' => 'required',
         ]);
 
@@ -42,12 +42,9 @@ class RoleController extends Controller
         //获取所有权限
         $permissions = AdminPermission::all();
         //获取当前角色权限
-        $myPermissions = $role->permissions();
+        $myPermissions = $role->permissions;
 
-        return view();
-
-
-        return view('admin/role/permission');
+        return view('admin/role/permission', compact('permissions', 'myPermissions', 'role'));
     }
 
     //储存角色权限的行为
@@ -56,13 +53,14 @@ class RoleController extends Controller
         $this->validate(\request(), [
             'permissions' => 'required|array'
         ]);
+
         $permissions = AdminPermission::find(\request('permissions'));
         $myPermissions = $role->permissions;
 
-        //对已经有的权限
+        // 对已经有的权限
         $addPermissions = $permissions->diff($myPermissions);
         foreach ($addPermissions as $permission) {
-            $role->granPermission($permission);
+            $role->grantPermission($permission);
         }
 
         $deletePermissions = $myPermissions->diff($permissions);

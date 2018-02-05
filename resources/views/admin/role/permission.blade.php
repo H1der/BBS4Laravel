@@ -18,7 +18,7 @@
                                 @foreach($permissions as $permission)
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="roles[]"
+                                            <input type="checkbox" name="permissions[]"
                                                    @if($myPermissions->contains($permission))
                                                    checked
                                                    @endif
@@ -32,8 +32,6 @@
                                 <button type="submit" class="btn btn-primary">提交</button>
                             </div>
                         </form>
-
-
                     </div>
                 </div>
             </div>

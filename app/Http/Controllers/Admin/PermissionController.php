@@ -24,6 +24,14 @@ class PermissionController extends Controller
     //创建权限实际行为
     public function store()
     {
+        $this->validate(\request(), [
+            'name' => 'required|min:3',
+            'description' => 'required'
+        ]);
+
+        AdminPermission::create(\request(['name', 'description']));
+
+        return redirect('admin/permissions');
 
     }
 }
