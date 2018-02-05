@@ -63,6 +63,7 @@ class RoleController extends Controller
             $role->grantPermission($permission);
         }
 
+        //对没有的权限
         $deletePermissions = $myPermissions->diff($permissions);
         foreach ($deletePermissions as $permission) {
             $role->deletePermission($permission);
