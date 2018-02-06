@@ -44,7 +44,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::post('/posts/{post}/status', 'PostsController@status');
         });
 
+        Route::group(['middleware' => 'can:topic'], function () {
+            Route::resource('topics', 'TopicController', ['only' => ['index', 'create', 'store', 'destroy']]);
 
+        });
     });
 
 
