@@ -11,12 +11,17 @@
                     </a>
                 @endcan
                 @can('delete',$post)
-                    <form method="post" action="/posts/{{$post['id']}}" accept-charset="utf-8" id="hidden-delete-form">
-                        <input name="_method" type="hidden" value="delete">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button type="submit" class="btn btn-info btn-danger btn-sm iframe cboxElement">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                    </form>
+                    {{--<form method="post" action="/posts/{{$post['id']}}" accept-charset="utf-8" id="hidden-delete-form">--}}
+                    {{--<input name="_method" type="hidden" value="delete">--}}
+                    {{--<input type="hidden" name="_token" value="{{ csrf_token() }}">--}}
+                    {{--<button type="submit" class="btn btn-info btn-danger btn-sm iframe cboxElement">--}}
+                    {{--<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>--}}
+                    {{--</form>--}}
+
+                    <a href="#" style="margin: auto" class="glyphicon glyphicon-remove"
+                       onclick="del({{$post['id']}})">
+                        {{--<span class="glyphicon glyphicon-remove"  delete-url="/posts/{{$post['id']}}" aria-hidden="true"></span>--}}
+                    </a>
                 @endcan
             </div>
 
@@ -29,7 +34,7 @@
                 @if($post->zan(Auth::id())->exists())
                     <a href="/posts/{{$post->id}}/unzan" type="button" class="btn btn-default btn-lg">取消赞</a>
                 @else
-                <a href="/posts/{{$post->id}}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
+                    <a href="/posts/{{$post->id}}/zan" type="button" class="btn btn-primary btn-lg">赞</a>
                 @endif
             </div>
         </div>

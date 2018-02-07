@@ -1,9 +1,3 @@
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
 var editor = new wangEditor('content');
 if (editor.config) {
     editor.config.uploadImgUrl = '/posts/image/upload';
@@ -15,6 +9,13 @@ if (editor.config) {
 
     editor.create();
 }
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
 
 $(".like-button").click(function (event) {
     var target = $(event.target);
@@ -54,3 +55,23 @@ $(".like-button").click(function (event) {
 
 });
 
+function del(id) {
+
+    if (confirm("确定删除吗?")) {
+        $.ajax({
+            url: '/posts/' + id,
+            method: "POST",
+            data: {"_method": 'DELETE'},
+            dataType: "json",
+            success: function (data) {
+                if (data.error != 0) {
+                    alert(data.msg);
+                    return;
+                }
+
+                window.location.href = "/posts";
+            }
+        });
+    }
+
+}

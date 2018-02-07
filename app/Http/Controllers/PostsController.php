@@ -105,12 +105,13 @@ class PostsController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Exception
      */
-    public function destroy($id, Post $post)
+    public function destroy($id)
     {
-        $this->authorize('update', $post);
         Post::destroy($id);
-
-        return redirect('/posts');
+        return [
+            'error' => 0,
+            'msg' => ''
+        ];
     }
 
     /**

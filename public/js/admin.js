@@ -51,4 +51,3 @@ $(".resource-delete").click(function (event) {
         }
     });
 });
-
