@@ -39,14 +39,18 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
         Route::group(['middleware' => 'can:post'], function () {
             //审核模块
-
             Route::get('/posts', 'PostsController@index');
             Route::post('/posts/{post}/status', 'PostsController@status');
         });
 
+        //专题模块
         Route::group(['middleware' => 'can:topic'], function () {
             Route::resource('topics', 'TopicController', ['only' => ['index', 'create', 'store', 'destroy']]);
+        });
 
+        //通知模块
+        Route::group(['middleware' => 'can:notice'], function () {
+            Route::resource('notices', 'NoticeController', ['only' => ['index', 'create', 'store']]);
         });
     });
 
