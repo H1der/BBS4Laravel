@@ -73,7 +73,5 @@
 
             </ul>
         </div>
-
     </div><!-- /.blog-main -->
-
 @endsection
