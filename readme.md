@@ -8,7 +8,7 @@
 </p>
 
 ## About
-> 基于 laravel 和 Vue 编写的视频网站 webapp
+> 基于 laravel 编写类简书式的 BBS 交流社区
 
 ## Install
 1. 获取源代码
