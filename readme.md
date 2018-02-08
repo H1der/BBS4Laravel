@@ -21,10 +21,13 @@
 3.生成配置文件(修改其中的配置选项:数据库的一定要修改)
 > cp .env.example .env
 
-4.使用安装命令(会执行执行数据库迁移，填充，监听队列 !!! 不需要再监听队列，此命令已包含)
+4.使用安装命
 > php artisan gps:install
 
 5.使用 elasticsearch-analysis-ik 作为搜索引擎
 > https://github.com/medcl/elasticsearch-analysis-ik
+
+6.生成通知队列
+> php artisan queue:work
 
 Usage
